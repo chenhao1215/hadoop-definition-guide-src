@@ -23,6 +23,7 @@ public class MaxTemperature {
 		FileInputFormat.addInputPath(conf, new Path(args[0]));
 		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
 		conf.setMapperClass(MaxTemperatureMapper.class);
+		conf.setCombinerClass(MaxTemperatureReducer.class);
 		conf.setReducerClass(MaxTemperatureReducer.class);
 		conf.setOutputKeyClass(Text.class);
 		conf.setOutputValueClass(IntWritable.class);
