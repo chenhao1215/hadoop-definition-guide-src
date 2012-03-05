@@ -68,4 +68,23 @@ public class ShowFileStatusTest {
 		assertThat(stat.getGroup(), is("supergroup"));
 		assertThat(stat.getPermission().toString(), is("rw-r--r--"));
 	}
+	
+	@Test
+	public void fileStatusForDirectory() throws IOException{
+		Path dir=new Path("/dir");
+		FileStatus stat=fs.getFileStatus(dir);
+		assertThat(stat.getPath().toUri().getPath(), is("/dir"));
+		
+		assertTrue(stat.isDirectory());
+		assertEquals(stat.getLen(), 0l);
+		assertTrue(System.currentTimeMillis()>=stat.getModificationTime());
+		
+		assertEquals(stat.getReplication(), 0);
+		
+		assertEquals(stat.getBlockSize(), 0);
+		assertEquals(stat.getOwner(), "Lucifer");
+		
+		assertThat(stat.getGroup(), is("supergroup"));
+		assertThat(stat.getPermission().toString(), is("rwxr-xr-x"));
+	}
 }
